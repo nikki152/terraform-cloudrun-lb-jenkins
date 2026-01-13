@@ -1,3 +1,3 @@
 project_id = "getteam"
 region = "us-central1"
-service_name = "demo-cloudrun-app"
+cloudrun_service_name = "my-existing-cloudrun-service"
