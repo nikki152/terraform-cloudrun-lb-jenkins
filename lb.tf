@@ -1,9 +1,10 @@
 resource "google_compute_backend_service" "backend" {
   name     = "cloudrun-backend"
+  load_balancing_scheme = "EXTERNAL"
   protocol = "HTTP"
  
   backend {
-    group = google_compute_region_network_endpoint_group.cr_neg.id
+    group = google_compute_region_network_endpoint_group.cloudrun_neg.id
   }
 }
  
@@ -13,12 +14,12 @@ resource "google_compute_url_map" "urlmap" {
 }
  
 resource "google_compute_target_http_proxy" "proxy" {
-  name    = "cloudrun-proxy"
+  name    = "cloudrun-http-proxy"
   url_map = google_compute_url_map.urlmap.id
 }
  
-resource "google_compute_global_forwarding_rule" "rule" {
-  name       = "cloudrun-rule"
+resource "google_compute_global_forwarding_rule" "forwarding_rule" {
+  name       = "cloudrun-forwarding-rule"
   port_range = "80"
   target     = google_compute_target_http_proxy.proxy.id
 }
