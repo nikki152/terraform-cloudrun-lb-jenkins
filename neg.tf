@@ -1,6 +1,6 @@
 resource "google_compute_region_network_endpoint_group" "cloudrun_neg" {
   name                  = "cloudrun-neg"
-  region                = var.region
+  region                = local.region
   network_endpoint_type = "SERVERLESS"
  
   cloud_run {
